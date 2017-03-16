@@ -38,6 +38,3 @@ python manage.py runserver
 ```
 
 6. News articles list should be accssible at http://127.0.0.1:8000/ and API endpoint should be accessible at http://127.0.0.1:8000/api
-
-7. Please see the attached screenshot for an idea about look and feel aof application.
-
