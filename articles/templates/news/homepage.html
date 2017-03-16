@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block javascript %}
+<script type="text/javascript">
+    function windowScroll(start) {
+        $(window).scroll(function(){
+            if ($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
+                load_more_news(start);
+            };
+        });
+    }
+
+    function load_more_news(start) {
+
+            $(".ajax-loader").show();
+            $(window).unbind('scroll');
+
+            $.ajax({
+                url: "{% url 'load_more_news' %}",
+                type: "GET",
+                data: {
+                    'start': start,
+                },
+                success: function(response) {
+                    $(".ajax-loader").hide();
+                    $("#add_more").append(response.data);
+
+                    if (response.more){
+                        windowScroll(response.start)
+                    }
+                }
+            })
+        }
+        $(function(){
+            windowScroll('{{ start }}')
+        })
+</script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <input type="hidden" name="start" value="{{ start }}" id="start"/>
+                <div id="add_more">
+                    {% for news in all_news %}
+                        <div class="article-card--container">
+                            <div class="article-card">
+                                <h3 class="card--heading"><a href="#3">{{ news.title }}</a></h3>
+                                <div class="card--thumbnail">
+                                    <img src="{{ news.avatar.url }}">
+                                </div>
+                                <div class="posted-on">
+                                    <span class="glyphicon glyphicon-time"></span> {{ news.created }} &#8226 {{ news.user.get_full_name }}
+                                </div>
+                                <div class="card--caption hidden-sm hidden-xs">
+                                    {{ news.description|truncatechars_html:250 }}
+                                    <small class="full-article-link"><a href="#3">Continue Reading</a></small>
+                                </div>
+                                <div class="card--control">
+                                    <div class="pull-left">
+                                        <a href="#3" class="social--icons">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                        <a href="#3" class="social--icons">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a href="#3" class="social--icons">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#3" class="social--icons">
+                                            <i class="fa fa-bookmark-o"></i>
+                                            <span class="hidden-xs">Bookmark</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="article-card--container">
+                            <h2 class="text-muted text-center no--news">No News Found</h2>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% if all_news %}    
+                <div class="ajax-loader"></div>
+            {% endif %}    
+            </div>
+       </div>
+    </div>
+    
+{% endblock %}

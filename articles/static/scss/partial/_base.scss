@@ -1,0 +1,32 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	background: $brand-grey-light;
+	color: $brand-text;
+	padding-top: 70px;
+}
+
+a {
+	color: $brand-text;
+
+	&:hover {
+		text-decoration: none;
+		color: lighten($brand-text, 10%);
+	}
+}
+
+.text-white {
+	color: #fff!important;
+}
+
+.font-bold {
+	font-weight: 700;
+}
+
+.ajax-loader {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	background-image: url("../images/loading.gif");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 30px 30px;
+}

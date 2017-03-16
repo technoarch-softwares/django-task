@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+	{% for news in all_news %}
+        <div class="article-card--container">
+            <div class="article-card">
+                <h3 class="card--heading"><a href="#3">{{ news.title }}</a></h3>
+                <div class="card--thumbnail">
+                    <img src="{{ news.avatar.url }}">
+                </div>
+                <div class="posted-on">
+                    <span class="glyphicon glyphicon-time"></span> {{ news.created }} &#8226 {{ news.user.get_full_name }}
+                </div>
+                <div class="card--caption hidden-sm hidden-xs">
+                    {{ news.description|truncatechars_html:250 }}
+                    <small class="full-article-link"><a href="#3">Continue Reading</a></small>
+                </div>
+                <div class="card--control">
+                    <div class="pull-left">
+                        <a href="#3" class="social--icons">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#3" class="social--icons">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#3" class="social--icons">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="#3" class="social--icons">
+                            <i class="fa fa-bookmark-o"></i>
+                            <span class="hidden-xs">Bookmark</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+			
+	
