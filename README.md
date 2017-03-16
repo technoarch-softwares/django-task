@@ -10,7 +10,7 @@ This is a test app that renders news list with 10 news articles per page and hav
 1. Clone the project repository using SSH access and command will be
 
 ```
-git clone git@github.com:technoarch-softwares/django-task.git
+git clone https://github.com/technoarch-softwares/django-task.git
 ```
 
 2. Now create a virtual environment using the following command:
